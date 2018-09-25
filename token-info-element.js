@@ -152,8 +152,33 @@ export default class TokenInfoElement extends TelepathicElement{
         node = this.$.querySelector('#loading-area');
         console.log("marquee: ",node);
         node.setAttribute("style","display: none;");
+        node = this.$.querySelector('#copyBtn');
+        if(node){
+            node.onclick = this.copyToClipBoard;
+        }else{
+            console.error("copy button is missing on ",this.$);
+        }
     }
 
+    async copyToClipBoard(evt){
+        console.log("copyToClipBoard: ",evt);
+        navigator.permissions.query({name: "clipboard-write"}).then(async perm => {
+            if (perm.state == "granted" || perm.state == "prompt") {
+                try{
+                    console.log("this: ",this);
+                    let parent = this.parentNode;
+                    console.log("parent: ",parent.innerText);
+                    let text = parent.innerText;
+                    let result = await navigator.clipboard.writeText(text);
+                    console.log("result: ",result);
+                    alert(`Successfully copied ${text} to clipboard`);
+                }catch(err){
+                    console.warn(err);
+                }
+            }
+          });
+       
+    }
     async connectWallet(){
         if(window.ethereum){
             //eip-1193

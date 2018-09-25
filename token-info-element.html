@@ -22,6 +22,20 @@
 .show{
     display:block;
 }
+
+.icon{
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+    margin: 1rem;
+    padding: 0.25rem;
+    border: none;
+}
+.icon:hover{
+    background-color: aliceblue;
+    border:1px;
+    border-color:black;
+}
 </style>
 <section class="container paper" id="network-info-area" contract="${contract.address}">
     <marquee id="loading-area" style="display: none;">${marqueeMessage}</marquee>
@@ -43,7 +57,7 @@
 <section class="container paper" id="contract-container">
         <div class="row">
             <div class="three col">Contract Address:</div>
-            <div class="nine col" data-bind="${contract.address}"></div>
+            <div class="nine col">${contract.address}<button class="icon far fa-copy" id="copyBtn"></button></div>
         </div>
         <div class="row">
             <qr-code-element qrdata="${contract.address}" class="six col paper"></qr-code-element>
