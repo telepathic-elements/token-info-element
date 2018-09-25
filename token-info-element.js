@@ -28,14 +28,12 @@ export default class TokenInfoElement extends TelepathicElement{
     attributeChangedCallback(attrName, oldVal, newVal) {
         //token address and or network, reconnect to infura
         console.log(attrName+" changed, was "+oldVal+" now is "+newVal);
+        this[attrName] = newVal;
+        this.reset();
     }
 
     async init(){
         console.warn(`${this.constructor.name} entering init!`);
-        //Connect to infura
-        if(!this.initialized){
-
-        }
     }
 
     async onNewBlock(err,headers){
