@@ -15,6 +15,7 @@ export default class TokenInfoElement extends TelepathicElement{
                 contract : 0.000,
             }
         }
+        this.config ={ "mainnet" : {"provider" : "wss://mainnet.infura.io/ws"}};
         this.marqueeMessage = "Loading Please Wait...";
         this.contract = {
             address: "0x000000000000000000",
@@ -95,9 +96,9 @@ export default class TokenInfoElement extends TelepathicElement{
         this.abiFile = this.getAttribute("abiFile");
         if(!this.abiFile){
             //LOTSO is default
-            this.abiFile = "./json/lotso.abi.json";
+            this.abiFile = "https://telepathic-elements.github.io/demos/json/lotso.abi.json";
         }
-        this.config = await this.loadFileJSON("./json/config.json");
+        //this.config = await this.loadFileJSON("./json/config.json");
         //this.contract.name = this.config.contract.name;
         //this.contract.address = this.config.contract.address;
         //this.contract.symbol = this.config.contract.symbol;
