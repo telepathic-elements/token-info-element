@@ -22,13 +22,17 @@ export default class TokenInfoElement extends TelepathicElement{
         this.ethereum = window.ethereum;
     }
     static get observedAttributes() {
-        return ['token','reset',"network","contract"];
+        return ['token',"network","contract"];
     }
 
     attributeChangedCallback(attrName, oldVal, newVal) {
         //token address and or network, reconnect to infura
         console.log(attrName+" changed, was "+oldVal+" now is "+newVal);
-        this[attrName] = newVal;
+        if(attrName =="contract" || attrName == "token"){
+            this.contract.address = newVal;
+        }else{
+            this[attrName] = newVal;
+        }
         this.reset();
     }
 
@@ -72,6 +76,10 @@ export default class TokenInfoElement extends TelepathicElement{
     async reset(){
         console.warn(`${this.constructor.name} entering reset!`);
         this.marquee = this.$.querySelector("#loading-area");
+        if(!this.marquee){
+            console.warn(`${this.constructor.name} can't be reset until UI is rendered`);
+            return;
+        }
         this.marqueeMessage = "Loading please wait...";
         this.marquee.removeAttribute("hidden");
 
