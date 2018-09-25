@@ -53,7 +53,7 @@ export default class TokenInfoElement extends TelepathicElement{
         this.updateBalances();
     }
     async updateBalances(){
-        if(this.user.account !== "unset"){
+        if(this.user.account && this.user.account !== "unset" && this.user.account !== "undefined"){
             let balEth = await this.web3.eth.getBalance(this.user.account);
             this.user.balances.eth = this.web3.utils.fromWei(balEth);
             let balContract = await this.myContract.methods.balanceOf(this.user.account).call();
@@ -213,7 +213,13 @@ export default class TokenInfoElement extends TelepathicElement{
 
             let accounts = await this.wallet.eth.getAccounts();
             console.log("accounts: ",accounts);
-            this.user.account = accounts[0];
+            if(accounts && accounts.length >= 1){
+                this.user.account = accounts[0];
+            }else{
+                alert("failed to connect to wallet, please make sure you are logged into MetaMask and then refresh the page");
+                this.reset();
+                return;
+            }
         }
         this.walletBtn.classList.remove("button-primary");
         this.walletBtn.classList.add("hide");
