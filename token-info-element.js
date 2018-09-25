@@ -1,5 +1,5 @@
-import {TelepathicElement} from "../telepathic-element/telepathic-element.js";
-import {Web3ServiceLoader} from "../web3-service-loader/web3-service-loader.js";
+import {TelepathicElement} from "https://telepathic-elements.github.io/telepathic-element/telepathic-element.js";
+import {Web3ServiceLoader} from "https://telepathic-elements.github.io/web3-service-loader/web3-service-loader.js";
 export default class TokenInfoElement extends TelepathicElement{
 	static describe(){return `An element to provide network stats and info for Ethereum Tokens.`};
 	constructor(fileName,noshadow,delayRender){
