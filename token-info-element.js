@@ -162,22 +162,33 @@ export default class TokenInfoElement extends TelepathicElement{
 
     async copyToClipBoard(evt){
         console.log("copyToClipBoard: ",evt);
-        navigator.permissions.query({name: "clipboard-write"}).then(async perm => {
-            if (perm.state == "granted" || perm.state == "prompt") {
-                try{
-                    console.log("this: ",this);
-                    let parent = this.parentNode;
-                    console.log("parent: ",parent.innerText);
-                    let text = parent.innerText;
-                    let result = await navigator.clipboard.writeText(text);
-                    console.log("result: ",result);
-                    alert(`Successfully copied ${text} to clipboard`);
-                }catch(err){
-                    console.warn(err);
-                }
+        let clipboard;
+        if(!clipboard){
+            clipboard = navigator.clipboard || window.clipboard;
+        }
+    
+        let perm = { state: "granted"};
+        try{
+            perm = await navigator.permissions.query({name: "clipboard-write"})
+        }catch(err){
+            console.warn(err);
+        }   
+
+        if (perm.state == "granted" || perm.state == "prompt") {
+            try{
+                console.log("this: ",this);
+                let parent = this.parentNode;
+                console.log("parent: ",parent.innerText);
+                let text = parent.innerText;
+                console.log("clipboard: ",clipboard);
+                let result = await clipboard.writeText(text);
+                console.log("result: ",result);
+                alert(`Successfully copied ${text} to clipboard`);
+            }catch(err){
+                console.warn(err);
             }
-          });
-       
+        }
+        
     }
     async connectWallet(){
         if(window.ethereum){
