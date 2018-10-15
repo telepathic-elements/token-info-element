@@ -3,6 +3,9 @@ import {Web3ServiceLoader} from "https://telepathic-elements.github.io/web3-serv
 export default class TokenInfoElement extends TelepathicElement{
 	static describe(){return `An element to provide network stats and info for Ethereum Tokens.`};
 	constructor(fileName,noshadow,delayRender){
+        if(!fileName){
+            fileName = "https://telepathic-elements.github.io/token-info-element/token-info-element.html";
+        }
 		super(fileName,noshadow,delayRender);
         this.userNetwork ="MAINNET";
         this.currentBlock = 0;
