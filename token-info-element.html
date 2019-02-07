@@ -1,0 +1,116 @@
+<style>
+@import "https://telepathic-elements.github.io/telepathic-styles/telepathy.css";
+
+.eight, .nine, .ten{
+    float:left;
+}
+
+.two, .three{
+    font-weight: bolder;
+}
+
+.container{
+    border:1px;
+    border-color: black;
+    border-radius: 25px;
+}
+
+.hide{
+    display:none;
+}
+
+.show{
+    display:block;
+}
+
+.icon{
+    width: 1rem;
+    height: 1rem;
+    font-size: 1rem;
+    margin: 1rem;
+    padding: 0.25rem;
+    border: none;
+}
+.icon:hover{
+    background-color: aliceblue;
+    border:1px;
+    border-color:black;
+}
+</style>
+<section class="container paper" id="network-info-area" contract="${contract.address}">
+    <marquee id="loading-area" style="display: none;">${marqueeMessage}</marquee>
+    <h4 class="title">${contract.name}</h4>
+    <div class="row">
+        <div class="three col">Network:</div>
+        <div class="nine col" data-bind="${userNetwork}"></div>
+    </div>
+    
+    <div class="row">
+            <div class="three col">Current Block:</div>
+            <div class="nine col" data-bind="${currentBlock}"></div>
+    </div>
+    <div class="row">
+            <div class="three col">GAS Price GWEI:</div>
+            <div class="nine col" data-bind="${gasPriceGwei}"></div>
+    </div>
+</section>
+<section class="container paper" id="contract-container">
+        <div class="row">
+            <div class="three col">Contract Address:</div>
+            <div class="nine col">${contract.address}<button class="icon far fa-copy" id="copyBtn"></button></div>
+        </div>
+        <div class="row">
+            <qr-code-element qrdata="${contract.address}" class="six col paper"></qr-code-element>
+        </div>
+        <div class="row">
+            <div class="three col">Symbol:</div>
+            <div class="nine col" data-bind="${contract.symbol}"></div>
+        </div>
+        <div class="row">
+            <div class="three col">Total Supply:</div>
+            <div class="nine col" data-bind="${contract.totalSupply}"></div>
+        </div>
+        <div class="row">
+            <div class="three col">ETH Price Per ${contract.symbol}:</div>
+            <div class="nine col" data-bind="${contract.price}"></div>
+        </div>
+</section>
+<section class="container paper">
+    <button id="walletBtn" class="button-primary" hidden>Connect to Wallet</button>
+    <details id="accountDetails" hidden>
+        <summary>User Account</summary>
+        <div class="row">
+            <div class="two col">Address:</div>
+            <div class="ten col" data-bind="${user.account}"></div>
+            
+        </div>
+        <div class="row">
+            <div class="six col">
+                <details>
+                    <summary>Show Wallet Qr</summary>
+                    <qr-code-element qrdata="${user.account}" class="paper"></qr-code-element>
+                </details>
+            </div>
+        </div>
+        <div class="row">
+            <div class="three col">Balance ETH:</div>
+            <div class="nine col" data-bind="${user.balances.eth}"></div>
+        </div>
+        <div class="row">
+            <div class="three col">Balance ${contract.symbol}:</div>
+            <div class="nine col" data-bind="${user.balances.contract}"></div>
+        </div>
+        <div class="row">
+            <div class="twelve col">
+                <label for="buySlider"><input type="number" value="${qtyBuy}" id="buyFld" placeholder="QTY To Purchase" required></label>
+                <input type="range" id="buySlider" class="u-full-width" value="${qtyBuy}" min="1" max="10000" step="1">
+            </div>
+        </div>
+        <div class="row">
+            <div class="two col">ETH Total:</div>
+            <div class="nine col">${totalETH}</div>
+        </div>
+
+        <button class="button-primary" id="buyNow">Buy Now!</button>
+    </details>
+</section>
